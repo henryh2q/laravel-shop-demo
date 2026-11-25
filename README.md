@@ -3,7 +3,7 @@
 A small but complete e-commerce site built with **Laravel 13, Blade and MySQL**, made as a public portfolio piece.
 It is a demo, not a real store and not client work.
 
-**Live demo:** _coming soon_ · Admin: `admin@demo.test` / `demo1234` · Stripe test card `4242 4242 4242 4242`
+**Live demo:** https://laravel-shop-demo-production.up.railway.app · Admin: `admin@demo.test` / `demo1234` · Stripe test card `4242 4242 4242 4242`
 
 ## What it shows
 
