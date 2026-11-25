@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\WebhookEvent;
+use App\Payments\PaymentGateway;
+use App\Payments\PaymentGatewayUnavailable;
 use App\Services\CheckoutService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -104,5 +106,32 @@ class CheckoutTest extends TestCase
 
         $this->post(route('checkout.store'), $form)->assertSessionHasErrors('cart');
         $this->assertSame(0, Order::count());
+    }
+
+    public function test_gateway_failure_shows_a_message_and_retry_reuses_the_order(): void
+    {
+        $product = Product::factory()->create();
+        $form = $this->startCheckout($product);
+
+        $working = app(PaymentGateway::class);
+        $failing = \Mockery::mock(PaymentGateway::class);
+        $failing->shouldReceive('name')->andReturn('stripe');
+        // First call fails (e.g. wrong API key), the retry goes through the working gateway.
+        $failing->shouldReceive('createCheckout')->once()->andThrow(new PaymentGatewayUnavailable('bad key'));
+        $failing->shouldReceive('createCheckout')->andReturnUsing(fn ($order) => $working->createCheckout($order));
+        $this->app->instance(PaymentGateway::class, $failing);
+
+        $this->from(route('checkout.create'))->post(route('checkout.store'), $form)
+            ->assertRedirect(route('checkout.create'))
+            ->assertSessionHasErrors('payment');
+
+        $order = Order::sole();
+        $this->assertNull($order->checkout_url);
+
+        $response = $this->post(route('checkout.store'), $form);
+        $response->assertRedirect($order->fresh()->checkout_url);
+
+        $this->assertSame(1, Order::count());
+        $this->assertNotNull($order->fresh()->checkout_url);
     }
 }

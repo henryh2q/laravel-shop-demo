@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Payments\PaymentGateway;
+use App\Payments\PaymentGatewayUnavailable;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,10 @@ class CheckoutService
     public function start(string $token, array $customer): Order
     {
         if ($existing = Order::where('idempotency_key', $token)->first()) {
-            return $existing;
+            // A previous attempt saved the order but the provider failed: retry the hosted checkout only.
+            return $existing->status === Order::PENDING && ! $existing->checkout_url
+                ? $this->attachCheckout($existing)
+                : $existing;
         }
 
         $lines = $this->cart->lines();
@@ -91,7 +95,20 @@ class CheckoutService
             return Order::where('idempotency_key', $token)->firstOrFail();
         }
 
-        $session = $this->gateway->createCheckout($order);
+        return $this->attachCheckout($order);
+    }
+
+    private function attachCheckout(Order $order): Order
+    {
+        try {
+            $session = $this->gateway->createCheckout($order);
+        } catch (PaymentGatewayUnavailable $e) {
+            report($e);
+
+            throw ValidationException::withMessages([
+                'payment' => __('Payment is temporarily unavailable. Please try again in a few minutes.'),
+            ]);
+        }
 
         $order->update([
             'gateway_session_id' => $session->id,

@@ -65,5 +65,6 @@
     "Something went wrong": "Đã có lỗi xảy ra",
     "An unexpected error happened on our side. Please try again in a moment.": "Hệ thống gặp lỗi ngoài ý muốn. Vui lòng thử lại sau ít phút.",
     "Back soon": "Sắp quay lại",
-    "The demo is being updated. Please try again in a minute.": "Bản demo đang được cập nhật. Vui lòng thử lại sau một phút."
+    "The demo is being updated. Please try again in a minute.": "Bản demo đang được cập nhật. Vui lòng thử lại sau một phút.",
+    "Payment is temporarily unavailable. Please try again in a few minutes.": "Thanh toán tạm thời không khả dụng. Vui lòng thử lại sau vài phút."
 }

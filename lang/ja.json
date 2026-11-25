@@ -65,5 +65,6 @@
     "Something went wrong": "エラーが発生しました",
     "An unexpected error happened on our side. Please try again in a moment.": "予期しないエラーが発生しました。しばらくしてからもう一度お試しください。",
     "Back soon": "まもなく再開します",
-    "The demo is being updated. Please try again in a minute.": "デモを更新中です。1分ほどしてからお試しください。"
+    "The demo is being updated. Please try again in a minute.": "デモを更新中です。1分ほどしてからお試しください。",
+    "Payment is temporarily unavailable. Please try again in a few minutes.": "現在お支払いを受け付けられません。数分後にもう一度お試しください。"
 }

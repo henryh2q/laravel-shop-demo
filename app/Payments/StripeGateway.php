@@ -5,6 +5,7 @@ namespace App\Payments;
 use App\Models\Order;
 use App\Models\Refund;
 use Illuminate\Http\Request;
+use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\SignatureVerificationException;
 use Stripe\StripeClient;
 use Stripe\Webhook;
@@ -26,27 +27,31 @@ class StripeGateway implements PaymentGateway
     {
         $order->loadMissing('items');
 
-        $session = $this->stripe->checkout->sessions->create([
-            'mode' => 'payment',
-            'customer_email' => $order->customer_email,
-            'client_reference_id' => $order->number,
-            'locale' => $order->locale,
-            'line_items' => $order->items->map(fn ($item) => [
-                'quantity' => $item->quantity,
-                'price_data' => [
-                    'currency' => $order->currency,
-                    'unit_amount' => $item->unit_price,
-                    'product_data' => ['name' => $item->product_name],
-                ],
-            ])->all(),
-            'metadata' => ['order_number' => $order->number],
-            'payment_intent_data' => ['metadata' => ['order_number' => $order->number]],
-            'success_url' => route('checkout.complete', $order).'?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => route('cart.index'),
-        ], [
-            // Same order => same key => Stripe returns the same session instead of a new charge.
-            'idempotency_key' => 'checkout-'.$order->idempotency_key,
-        ]);
+        try {
+            $session = $this->stripe->checkout->sessions->create([
+                'mode' => 'payment',
+                'customer_email' => $order->customer_email,
+                'client_reference_id' => $order->number,
+                'locale' => $order->locale,
+                'line_items' => $order->items->map(fn ($item) => [
+                    'quantity' => $item->quantity,
+                    'price_data' => [
+                        'currency' => $order->currency,
+                        'unit_amount' => $item->unit_price,
+                        'product_data' => ['name' => $item->product_name],
+                    ],
+                ])->all(),
+                'metadata' => ['order_number' => $order->number],
+                'payment_intent_data' => ['metadata' => ['order_number' => $order->number]],
+                'success_url' => route('checkout.complete', $order).'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('cart.index'),
+            ], [
+                // Same order => same key => Stripe returns the same session instead of a new charge.
+                'idempotency_key' => 'checkout-'.$order->idempotency_key,
+            ]);
+        } catch (ApiErrorException $e) {
+            throw new PaymentGatewayUnavailable($e->getMessage(), previous: $e);
+        }
 
         return new CheckoutSession($session->id, $session->url);
     }
