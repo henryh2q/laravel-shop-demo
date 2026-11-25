@@ -29,6 +29,6 @@
     </div>
 </form>
 @if ($product->exists)
-    <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="mt-4" onsubmit="return confirm('Delete this product?')">@csrf @method('DELETE')<button class="text-sm text-red-600 hover:underline">Delete product</button></form>
+    <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="mt-4" data-confirm="Delete this product?">@csrf @method('DELETE')<button class="text-sm text-red-600 hover:underline">Delete product</button></form>
 @endif
 @endsection

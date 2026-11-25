@@ -20,6 +20,6 @@
     <button class="btn-primary">Save</button>
 </form>
 @if ($page->exists)
-    <form method="POST" action="{{ route('admin.pages.destroy', $page) }}" class="mt-4" onsubmit="return confirm('Delete this page?')">@csrf @method('DELETE')<button class="text-sm text-red-600 hover:underline">Delete page</button></form>
+    <form method="POST" action="{{ route('admin.pages.destroy', $page) }}" class="mt-4" data-confirm="Delete this page?">@csrf @method('DELETE')<button class="text-sm text-red-600 hover:underline">Delete page</button></form>
 @endif
 @endsection

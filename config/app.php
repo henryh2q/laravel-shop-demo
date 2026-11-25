@@ -39,7 +39,8 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    // Never show debug pages outside local development, even if APP_DEBUG is set by mistake.
+    'debug' => (bool) env('APP_DEBUG', false) && in_array(env('APP_ENV'), ['local', 'testing'], true),
 
     /*
     |--------------------------------------------------------------------------

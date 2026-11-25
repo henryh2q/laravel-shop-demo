@@ -16,7 +16,7 @@ It is a demo, not a real store and not client work.
 | Refunds | Full and partial refunds from the admin panel, with an idempotency key per refund, a row lock so two admins cannot over-refund, and status synced back from `refund.*` webhooks. |
 | Admin panel | Hand-built (no package): dashboard, orders with filters, refund form, product CRUD, multilingual CMS pages, webhook event log with raw payloads. |
 | i18n | English, Japanese and Vietnamese for the UI (`lang/*.json`) and for content (JSON columns per locale). |
-| Tests | 25 feature tests: checkout idempotency, forged tokens, stock limits, webhook signatures and replays, refunds, admin access, CRUD. |
+| Tests | 28 feature tests: checkout idempotency, forged tokens, stock limits, webhook signatures and replays, refunds, admin access, CRUD, security headers and error pages. |
 
 Without Stripe keys the app switches to a built-in **offline demo gateway** that mimics a hosted checkout page and
 sends HMAC-signed webhooks through the same pipeline, so the whole flow works with zero setup.
@@ -58,3 +58,10 @@ To use real Stripe test mode, set `STRIPE_KEY`, `STRIPE_SECRET` and `STRIPE_WEBH
 ## Credits
 
 Product photos are from [Unsplash](https://unsplash.com) under the Unsplash License, credited on each product page. Chanoma is a fictional shop.
+
+## Security notes
+
+- `APP_DEBUG` is forced off unless `APP_ENV` is `local` or `testing`, and custom error pages (404, 403, 419, 429, 500, 503) never show stack traces.
+- Security headers on every response: strict CSP (no inline scripts), `X-Frame-Options: DENY`, `nosniff`, HSTS, `Referrer-Policy`, `Permissions-Policy`; `X-Powered-By` removed.
+- Secure, HTTP-only session cookies in production; CSRF on all forms except the signature-verified webhook; rate limits on checkout and admin login.
+- No secrets in the repository: keys live only in the host's environment variables.

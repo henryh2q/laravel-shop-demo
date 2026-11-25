@@ -52,5 +52,18 @@
     "Matcha, sencha and sweets from Kyoto to your cup": "京都から、抹茶・煎茶・和菓子をお届け",
     "Photo": "写真",
     "Product photos from": "商品写真：",
-    "Chanoma is a fictional shop.": "茶の間は架空のショップです。"
+    "Chanoma is a fictional shop.": "茶の間は架空のショップです。",
+    "Back to the shop": "ショップに戻る",
+    "Page not found": "ページが見つかりません",
+    "The page you are looking for does not exist or has moved.": "お探しのページは存在しないか、移動しました。",
+    "Access denied": "アクセスできません",
+    "You do not have permission to view this page.": "このページを表示する権限がありません。",
+    "Page expired": "ページの有効期限切れ",
+    "Your session expired. Please go back, refresh the page and try again.": "セッションの有効期限が切れました。前のページに戻り、再読み込みしてからお試しください。",
+    "Too many requests": "リクエストが多すぎます",
+    "Please wait a moment and try again.": "しばらくしてからもう一度お試しください。",
+    "Something went wrong": "エラーが発生しました",
+    "An unexpected error happened on our side. Please try again in a moment.": "予期しないエラーが発生しました。しばらくしてからもう一度お試しください。",
+    "Back soon": "まもなく再開します",
+    "The demo is being updated. Please try again in a minute.": "デモを更新中です。1分ほどしてからお試しください。"
 }
