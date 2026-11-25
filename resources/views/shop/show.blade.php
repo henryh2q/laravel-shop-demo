@@ -2,7 +2,12 @@
 @section('title', $product->translate('name'))
 @section('content')
 <div class="grid gap-8 md:grid-cols-2">
-    <x-product-image :product="$product" class="card aspect-square w-full @container" />
+    <figure>
+        <x-product-image :product="$product" :size="900" class="card aspect-square w-full @container" />
+        @if ($credit = $product->imageCredit())
+            <figcaption class="mt-2 text-xs text-slate-500">{{ __('Photo') }}: <a href="{{ $credit['url'] }}" class="underline" target="_blank" rel="noopener">{{ $credit['name'] }}</a> / <a href="https://unsplash.com/?utm_source=laravel_shop_demo&utm_medium=referral" class="underline" target="_blank" rel="noopener">Unsplash</a></figcaption>
+        @endif
+    </figure>
     <div>
         <div class="text-sm text-slate-500">{{ $product->category?->translate('name') }} · SKU {{ $product->sku }}</div>
         <h1 class="mt-1 text-2xl font-bold">{{ $product->translate('name') }}</h1>

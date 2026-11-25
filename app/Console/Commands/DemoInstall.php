@@ -11,6 +11,8 @@ use Illuminate\Console\Command;
 #[Description('Run migrations and seed demo data when the database is empty.')]
 class DemoInstall extends Command
 {
+    private const CATALOG_MARKER = 'ceremonial-matcha-uji';
+
     public function handle(): int
     {
         if ($this->option('fresh')) {
@@ -23,6 +25,9 @@ class DemoInstall extends Command
 
         if (Product::count() === 0) {
             $this->call('db:seed', ['--force' => true]);
+        } elseif (Product::where('slug', self::CATALOG_MARKER)->doesntExist()) {
+            // The demo catalog changed: start again from fresh sample data.
+            $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
         }
 
         return self::SUCCESS;

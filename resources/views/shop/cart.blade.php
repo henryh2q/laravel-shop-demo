@@ -11,7 +11,7 @@
         @csrf @method('PATCH')
         @foreach ($lines as $line)
             <div class="flex items-center gap-4 p-4">
-                <x-product-image :product="$line->product" class="size-16 shrink-0 rounded-lg @container" />
+                <x-product-image :product="$line->product" :size="160" class="size-16 shrink-0 rounded-lg @container" />
                 <div class="flex-1">
                     <a href="{{ route('products.show', $line->product) }}" class="font-medium hover:underline">{{ $line->product->translate('name') }}</a>
                     <div class="text-sm text-slate-500">{{ \App\Support\Money::format($line->product->price) }}</div>

@@ -8,7 +8,7 @@
 <body class="min-h-screen bg-slate-100 text-slate-900 antialiased">
 <div class="flex min-h-screen flex-col md:flex-row">
     <aside class="bg-slate-900 text-slate-300 md:w-56 md:shrink-0">
-        <div class="px-5 py-5 text-lg font-bold text-white">Demo<span class="text-sky-400">Store</span> <span class="text-xs font-normal text-slate-400">admin</span></div>
+        <div class="px-5 py-5 text-lg font-bold text-white">Chanoma<span class="text-emerald-400"> 茶の間</span> <span class="text-xs font-normal text-slate-400">admin</span></div>
         <nav class="flex gap-1 overflow-x-auto px-3 pb-3 text-sm md:flex-col">
             @foreach ([
                 ['admin.dashboard', 'Dashboard', 'admin.dashboard'],

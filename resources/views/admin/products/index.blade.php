@@ -12,7 +12,7 @@
         <tbody class="divide-y">
             @foreach ($products as $product)
                 <tr class="hover:bg-slate-50">
-                    <td class="p-3"><div class="flex items-center gap-3"><x-product-image :product="$product" class="size-10 shrink-0 rounded @container" /><div>{{ $product->translate('name', 'en') }}<div class="text-xs text-slate-500">{{ $product->translate('name', 'ja') }}</div></div></div></td>
+                    <td class="p-3"><div class="flex items-center gap-3"><x-product-image :product="$product" :size="120" class="size-10 shrink-0 rounded @container" /><div>{{ $product->translate('name', 'en') }}<div class="text-xs text-slate-500">{{ $product->translate('name', 'ja') }}</div></div></div></td>
                     <td class="p-3 font-mono text-xs">{{ $product->sku }}</td>
                     <td class="p-3">{{ $product->category?->translate('name', 'en') }}</td>
                     <td class="p-3 text-right">{{ \App\Support\Money::format($product->price) }}</td>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>@yield('title', __('Home')) · Demo Store</title>
+    <title>@yield('title', __('Home')) · Chanoma Tea (demo)</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
@@ -15,7 +15,7 @@
 
     <header class="border-b border-slate-200 bg-white">
         <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-4 py-4">
-            <a href="{{ route('home') }}" class="text-lg font-bold tracking-tight">Demo<span class="text-brand-600">Store</span></a>
+            <a href="{{ route('home') }}" class="text-lg font-bold tracking-tight">Chanoma<span class="text-emerald-700"> 茶の間</span></a>
             <nav class="flex gap-4 text-sm text-slate-600">
                 <a href="{{ route('home') }}" class="hover:text-slate-900">{{ __('Shop') }}</a>
                 <a href="{{ route('pages.show', 'about') }}" class="hover:text-slate-900">{{ __('About this demo') }}</a>
@@ -48,6 +48,7 @@
 
     <footer class="border-t border-slate-200 py-8 text-center text-xs text-slate-500">
         {{ __('Laravel + Blade + MySQL · Stripe Checkout (test mode) · Custom admin panel · EN / 日本語 / Tiếng Việt') }}
+        <div class="mt-2">{{ __('Product photos from') }} <a href="https://unsplash.com/?utm_source=laravel_shop_demo&utm_medium=referral" class="underline" target="_blank" rel="noopener">Unsplash</a>. {{ __('Chanoma is a fictional shop.') }}</div>
     </footer>
 </body>
 </html>

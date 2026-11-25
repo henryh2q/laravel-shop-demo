@@ -1,6 +1,6 @@
-# Laravel Shop Demo
+# Chanoma 茶の間: Laravel Shop Demo
 
-A small but complete e-commerce site built with **Laravel 13, Blade and MySQL**, made as a public portfolio piece.
+A small but complete e-commerce site for a fictional Japanese tea & wagashi shop, built with **Laravel 13, Blade and MySQL**, made as a public portfolio piece.
 It is a demo, not a real store and not client work.
 
 **Live demo:** https://laravel-shop-demo-production.up.railway.app · Admin: `admin@demo.test` / `demo1234` · Stripe test card `4242 4242 4242 4242`
@@ -54,3 +54,7 @@ To use real Stripe test mode, set `STRIPE_KEY`, `STRIPE_SECRET` and `STRIPE_WEBH
    `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.expired`,
    `refund.created`, `refund.updated`, `refund.failed`, and copy its signing secret into `STRIPE_WEBHOOK_SECRET`.
 5. Optional: reset the public demo daily with a Railway cron service running `php artisan demo:install --fresh`.
+
+## Credits
+
+Product photos are from [Unsplash](https://unsplash.com) under the Unsplash License, credited on each product page. Chanoma is a fictional shop.
