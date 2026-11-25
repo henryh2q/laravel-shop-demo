@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views';
+
+@theme {
+    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    --color-brand-50: #eef6ff;
+    --color-brand-600: #1f5fbf;
+    --color-brand-700: #184c99;
+}
+
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:opacity-50; }
+@utility btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
+@utility btn-ghost { @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50; }
+@utility btn-danger { @apply btn bg-red-600 text-white hover:bg-red-700; }
+@utility input { @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20 focus:outline-none; }
+@utility label { @apply mb-1 block text-sm font-medium text-slate-700; }
+@utility card { @apply rounded-xl border border-slate-200 bg-white; }
+@utility badge { @apply inline-flex rounded-full px-2 py-0.5 text-xs font-medium; }
+
+@layer base {
+    *, ::after, ::before, ::backdrop { border-color: var(--color-slate-200); }
+}
