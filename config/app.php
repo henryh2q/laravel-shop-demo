@@ -99,7 +99,11 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'key' => env('APP_KEY'),
+    // APP_KEY_SEED lets a host derive a stable key from a secret it already manages
+    // (e.g. a Railway reference variable), so no key has to be pasted by hand.
+    'key' => env('APP_KEY') ?: (env('APP_KEY_SEED')
+        ? 'base64:'.base64_encode(hash('sha256', 'laravel-app-key|'.env('APP_KEY_SEED'), true))
+        : null),
 
     'previous_keys' => [
         ...array_filter(

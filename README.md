@@ -48,7 +48,7 @@ To use real Stripe test mode, set `STRIPE_KEY`, `STRIPE_SECRET` and `STRIPE_WEBH
 ## Deploy on Railway
 
 1. New project → Deploy from GitHub repo → this repository. Add a **MySQL** database to the project.
-2. On the web service, set the variables from `.env.example.railway` (generate `APP_KEY` with `php artisan key:generate --show`).
+2. On the web service, set the variables from `.env.example.railway` (`APP_KEY_SEED` derives a stable app key from the MySQL password reference, or set `APP_KEY` yourself).
 3. Settings → Networking → Generate domain. `railway.json` runs `php artisan demo:install` before each deploy (migrate, seed when empty).
 4. In the Stripe dashboard (test mode) add a webhook endpoint `https://<domain>/webhooks/payments` for
    `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.expired`,
